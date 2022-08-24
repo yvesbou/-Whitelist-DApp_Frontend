@@ -43,4 +43,26 @@ export default function Home() {
     return web3Provider;
   }
 
+  const addAddressToWhitelist = async () => {
+    try {
+      // we will perform a write transaction, thus we need the signer
+      const signer = await getProviderOrSigner(true);
+      const whitelistContract = new Contract(
+        WHITELIST_CONTRACT_ADDRESS,
+        abi,
+        signer
+      );
+      // call func from the contract
+      const tx = await whitelistContract.addAddressToWhitelist();
+      setLoading(true);
+      // wait for the transaction to get mined
+      setLoading(false);
+      const numWhitelisted = await getNumberOfWhitelisted();
+      setNumberOfWhitelisted(numWhitelisted);
+      setJoinedWhitelist(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 }
