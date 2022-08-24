@@ -65,4 +65,43 @@ export default function Home() {
     }
   }
 
+  const getNumberOfWhitelisted = async () => {
+    try {
+      // no need for signer, only read rpc connection needed
+      const provider = await getProviderOrSigner();
+      const whitelistContract = new Contract(
+        WHITELIST_CONTRACT_ADDRESS,
+        abi,
+        provider
+      );
+      const numWhitelisted = await getNumberOfWhitelisted();
+      setNumberOfWhitelisted(numWhitelisted);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const checkIfAddressInWhitelist = async () => {
+    try {
+      // even though we do only a read operation
+      // we use the signer, because we need the address
+      const signer = await getProviderOrSigner(true);
+      const whitelistContract = new Contract(
+        WHITELIST_CONTRACT_ADDRESS,
+        abi,
+        signer
+      );
+      
+      const address = await signer.getAddress();
+
+      // calling the mapping from the contract, returns bool
+      const _joinedWhitelist = await whitelistContract.addressWhitelisted(address);
+      
+      setJoinedWhitelist(_joinedWhitelist);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 }
