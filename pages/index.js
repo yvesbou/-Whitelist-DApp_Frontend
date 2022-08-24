@@ -104,4 +104,43 @@ export default function Home() {
     }
   }
 
+  const connectWallet = async () => {
+    try {
+      // Get the provider from web3Modal, which in our case is MetaMask
+      // When used for the first time, it prompts the user to connect their wallet
+      await getProviderOrSigner();
+      setWalletConnected(true);
+      checkIfAddressInWhitelist();
+      getNumberOfWhitelisted();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const renderButton = () => {
+    if (walletConnected) {
+      if (joinedWhitelist) {
+        return (
+          <div className={styles.description}>
+            Thanks for joining the Whitelist!
+          </div>
+        );
+      } else if (loading) {
+        return <button className={styles.button}>Loading ...</button>;
+      } else {
+        return (
+          <button onClick={addAddressToWhitelist} className={styles.button}>
+            Join the Whitelist
+          </button>
+        )
+      }
+    } else {
+      return (
+        <button onClick={connectWallet} className={styles.button}>
+          Connect your Wallet
+        </button>
+      )
+    }
+  }
+
 }
