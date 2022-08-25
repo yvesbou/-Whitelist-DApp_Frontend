@@ -160,6 +160,26 @@ export default function Home() {
     }
   }, [walletConnected]);
 
+  // useEffect(() => {
+  //   if (walletConnected){
+  //     const listenToAccountsChanged = async () => {
+  //       // const provider = await web3ModalRef.current.connect();
+  //       const web3provider = await getProviderOrSigner(true);
+  //       console.log(web3provider)
+  //       // const web3Provider = new providers.Web3Provider(provider);
+  //       // console.log(web3Provider)
+  //       web3provider.provider.on("accountsChanged", (accounts) => {
+  //         console.log(accounts);
+  //       });
+  //     }
+
+  //     listenToAccountsChanged();
+  //   }
+  
+    
+  // }, )
+  
+
   return (
     <div>
       <Head>
