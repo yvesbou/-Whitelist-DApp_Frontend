@@ -160,6 +160,7 @@ export default function Home() {
     }
   }, [walletConnected]);
 
+  // WIP: 
   // useEffect(() => {
   //   if (walletConnected){
   //     const listenToAccountsChanged = async () => {
