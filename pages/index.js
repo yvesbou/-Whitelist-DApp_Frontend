@@ -31,6 +31,7 @@ export default function Home() {
     const web3Provider = new providers.Web3Provider(provider);
 
     const { chainId } = await web3Provider.getNetwork();
+    console.log(chainId)
     if (chainId !== DEFAULT_CHAIN_ID) {
       window.alert("Change the network");
       throw new Error("Change network");
@@ -44,6 +45,7 @@ export default function Home() {
   }
 
   const addAddressToWhitelist = async () => {
+    console.log('executed')
     try {
       // we will perform a write transaction, thus we need the signer
       const signer = await getProviderOrSigner(true);
@@ -74,7 +76,9 @@ export default function Home() {
         abi,
         provider
       );
-      const numWhitelisted = await getNumberOfWhitelisted();
+      
+      const numWhitelisted = await whitelistContract.getNumAddressesWhitelisted();
+
       setNumberOfWhitelisted(numWhitelisted);
     } catch (error) {
       console.error(error);
@@ -145,6 +149,7 @@ export default function Home() {
 
   useEffect(() => {
     // if wallet is not connected, create a new instance of Web3Modal
+    console.log(walletConnected)
     if (!walletConnected) {
       web3ModalRef.current = new Web3Modal({
         network: DEFAULT_CHAIN,
